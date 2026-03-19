@@ -297,6 +297,8 @@ struct server
    char databases[NUMBER_OF_EXTENSIONS][DB_NAME_LENGTH];   /**< Databases in the server */
    struct extension_info extensions[NUMBER_OF_EXTENSIONS]; /**< The extensions */
    char extensions_config[MAX_EXTENSIONS_CONFIG_LENGTH];   /**< Server-specific extensions configuration */
+   bool fips_enabled;                                      /**< FIPS mode status */
+   bool fips_checked;                                      /**< FIPS status has been determined */
 
 } __attribute__((aligned(64)));
 

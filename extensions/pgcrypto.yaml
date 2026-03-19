@@ -116,3 +116,31 @@ metrics:
           - name: avg_time_per_call
             type: gauge
             description: Average execution time per call
+
+#
+# Extension Version 1.4
+# Compatible: PostgreSQL 18+
+# Provides FIPS mode status reporting via pgcrypto
+#
+
+# FIPS mode status - reports whether PostgreSQL is running in FIPS mode
+  - metric: fips_mode
+    queries:
+      - query: SELECT
+                  CASE WHEN fips_mode() THEN 1 ELSE 0 END as fips_mode;
+        version: "1.4"
+        columns:
+          - name: fips_mode
+            type: gauge
+            description: Whether PostgreSQL is running in FIPS mode via pgcrypto (1=enabled, 0=disabled)
+
+# pgcrypto built-in crypto configuration
+  - metric: builtin_crypto_config
+    queries:
+      - query: SELECT
+                  current_setting('pgcrypto.builtin_crypto_enabled', true) as config_value;
+        version: "1.4"
+        columns:
+          - name: config_value
+            type: label
+            description: pgcrypto built-in crypto configuration setting (on/off/fips)

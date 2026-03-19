@@ -83,6 +83,32 @@ Identifies if the monitored PostgreSQL instance is operating as a primary (1, no
 | :-------- | :---------- | :----- |
 | server | The configured name/identifier for the PostgreSQL server. | 1: This server is the primary (not in recovery)., 0: This server is a replica/standby (in recovery). |
 
+## pgexporter_fips
+Reports whether pgexporter's own OpenSSL library is running in FIPS mode (1) or not (0).
+
+## pgexporter_postgresql_fips
+Reports whether PostgreSQL is running in FIPS mode.
+
+**Detection method varies by PostgreSQL version:**
+
+**PostgreSQL < 14:**
+- Not supported for FIPS detection
+- Always returns 0
+
+**PostgreSQL 14-17:**
+- Reads system-level FIPS configuration directly from the OS
+- Supported on Linux (Fedora, RHEL, Rocky Linux) and FreeBSD
+- OpenBSD: Returns 0 (system-level detection not available)
+
+**PostgreSQL 18+:**
+- Uses the `fips_mode()` function from pgcrypto extension
+- Requires pgcrypto to be installed
+- No special privileges required
+
+| Attribute | Description | Values |
+| :-------- | :---------- | :----- |
+| server | The configured name/identifier for the PostgreSQL server. | 1: FIPS mode is active., 0: FIPS mode is not active or not detectable. |
+
 ## pgexporter_pg_settings_allow_in_place_tablespaces
 
 Reflects the PostgreSQL `allow_in_place_tablespaces` setting, allowing tablespaces inside pg_tblspc for testing (0=off, 1=on).

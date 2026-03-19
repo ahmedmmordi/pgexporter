@@ -106,6 +106,8 @@ extern "C" {
 #define MANAGEMENT_ARGUMENT_STATUS            "Status"
 #define MANAGEMENT_ARGUMENT_TIME              "Time"
 #define MANAGEMENT_ARGUMENT_TIMESTAMP         "Timestamp"
+#define MANAGEMENT_ARGUMENT_FIPS              "Fips"
+#define MANAGEMENT_ARGUMENT_PGEXPORTER_FIPS   "PgexporterFips"
 
 /**
  * Management error
